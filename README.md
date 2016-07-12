@@ -132,3 +132,47 @@ $ ./TicTacToe
 +---+---+---+
 ```
 
+### Multiplication table
+The following code will create a simple elementary-school-level multiplication
+table based on the provided integer `n`:
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import System.Environment
+import Text.Tabl
+import qualified Data.Text as Text
+import qualified Data.Text.IO as Text
+
+numbers :: Int
+        -> [[Text.Text]]
+numbers n = header : zipWith (:) digits content
+  where
+    header = " " : digits
+    digits = map (Text.pack . show) [1..n]
+    content = map (map (Text.pack . show)) mults
+    mults = map (flip map [1..n] . (*)) [1..n]
+
+main :: IO ()
+main = do
+  [n] <- getArgs
+  let hdecor = DecorOnly [1]
+  let vdecor = DecorOnly [1]
+  let aligns = repeat AlignRight
+  Text.putStrLn $ tabl EnvAscii hdecor vdecor aligns (numbers (read n))
+```
+
+When running the code with e.g. `n = 7`:
+```
+$ ./Multiply 7
+  | 1  2  3  4  5  6  7
+--+--------------------
+1 | 1  2  3  4  5  6  7
+2 | 2  4  6  8 10 12 14
+3 | 3  6  9 12 15 18 21
+4 | 4  8 12 16 20 24 28
+5 | 5 10 15 20 25 30 35
+6 | 6 12 18 24 30 36 42
+7 | 7 14 21 28 35 42 49
+```
+
