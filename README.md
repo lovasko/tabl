@@ -28,10 +28,34 @@ $ ./LanguageHistory
 
 ## Settings
 The following sections provide detailed description of the layout settings,
-that can be separated into three categories: environment adaptation, column
+which can be separated into three categories: environment adaptation, column
 alignments, and both vertical and horizontal decoration.
 
 ### Environment
+The meaning and realisation of a table layout is dependant on the context it
+appears in: a Markdown or HTML table is different from a ASCII-art one
+showcased in the introductory section. The `Text.Tabl` library currently
+supports two contexts - ASCII-art and LaTeX, represented by type ` Environment`
+with two constructors, both of zero arity: `EnvAscii` and `EnvLatex`.
+
+The way that the codebase is organised makes adding new environments easy:
+apart from the actual layout code, the process boils down to creating a new 
+`Environment` constructor and adding the appropriate pattern matching rule in
+the main `tabl` function.
+
+While the introductory example is using the `EnvAscii` environment, the output
+of equivalent table within the `EnvLatex` would look like this:
+```tex
+\begin{tabular}{ | l | l | l | }
+\hline \\
+Language & Year & Author
+\hline \\
+C & 1972 & Dennis Ritchie \\
+Lisp & 1958 & John McCarthy \\
+Python & 1991 & Guido van Rossum \\
+\hline
+\end{tabular}
+```
 
 ### Alignment
 
