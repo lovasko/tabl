@@ -60,3 +60,75 @@ main = Text.putStrLn $ tabl EnvAscii hdecor vdecor [] info
             ["Python", "1991", "Guido van Rossum"]]
 ```
 
+### List of UNIX system users
+The following code lists all users (their IDs, names and full descriptions) on
+the system:
+
+```haskell
+import System.Posix.User
+import Text.Tabl
+import qualified Data.Text as Text
+
+-- | Create a table row for one user entry.
+createRow :: UserEntry   -- ^ user
+          -> [Text.Text] -- ^ table row
+createRow ue = map Text.pack [show $ userID ue, userName ue, userGecos ue]
+
+-- | Print all system users and their respective basic information.
+main :: IO ()
+main = do
+  users <- getAllUserEntries
+  let cells = map createRow users
+  putStrLn $ tabl EnvAscii DecorNone DecorNone [AlignRight] cells
+```
+
+After compiling and running the code, we get:
+```
+$ ./Users | tail -7
+   66 uucp       UUCP pseudo-user
+   68 pop        Post Office Owner
+   78 auditdistd Auditdistd unprivileged user
+   80 www        World Wide Web Owner
+  845 hast       HAST unprivileged user
+65534 nobody     Unprivileged user
+  964 git_daemon git daemon
+```
+
+### Tic-tac-toe
+The following code creates a random (possibly invalid) state of the famous
+child game Tic-tac-toe and renders the playing area:
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import Control.Monad
+import Data.List.Split
+import Data.Word
+import System.Random
+import Text.Tabl
+import qualified Data.Text as Text
+import qualified Data.Text.IO as Text
+
+main :: IO ()
+main = do
+  fields <- replicateM 9 randomIO :: IO [Word8]
+  let table = chunksOf 3 $ map (mark . (`mod` 3)) fields
+  Text.putStrLn $ tabl EnvAscii DecorAll DecorAll (repeat AlignCentre) table
+  where
+    mark 0 = " "
+    mark 1 = "X"
+    mark 2 = "O"
+```
+
+An example run of the compiled program:
+```
+$ ./TicTacToe
++---+---+---+
+| O | X | X |
++---+---+---+
+|   | O |   |
++---+---+---+
+| O |   |   |
++---+---+---+
+```
+
