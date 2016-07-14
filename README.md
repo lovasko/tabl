@@ -59,7 +59,40 @@ Python & 1991 & Guido van Rossum \\
 
 ### Alignment
 
+
 ### Decoration
+The second of the two major added values provided by the `Text.Tabl` library is
+the process of decorating the table by visually separating both and/or rows. 
+Both the decoration process and decoration interface are decomposed into two
+dimensions: horizontal and vertical, while both at being treated equally.
+
+Each space between two rows or two columns is indexed, where the top and left
+spaces share the index zero. Therefore, if a table is comprised of `n` rows,
+there are `0..n` positions that could possibly hold decoration.
+
+The description of the decoration is embodied in the `Decoration` type,
+specifically within one (or more) of it's constructors:
+ * `DecorNone`
+ * `DecorAll`
+ * `DecorInner`
+ * `DecorOuter`
+ * `DecorOnly [Int]`
+ * `DecorExcept [Int]`
+ * `DecorUnion [Decoration]`
+ * `DecorIsect [Decoration]`
+
+Essentially, the most powerful decoration constructors are `DecorOnly` and
+`DecorExcept`, which allow for a precise selection of indices that should
+contain the decoration. Other decoration definitions, such as `DecorInner` or
+`DecorAll` are convenience constructors that help the user achieve a set goal
+without the need to specify the width nor the height of the table.
+
+Moreover, the `DecorUnion` and `DecorIsect` constructors are used to perform
+set operations on top of a list of decorations, union and intersection
+respectively.
+
+The examples listed below demonstrate various decoration options and can be
+used as a further study material on this topic.
 
 ## Examples
 The following section contain various examples that use the `Text.Tabl` library
