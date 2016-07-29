@@ -58,7 +58,20 @@ Python & 1991 & Guido van Rossum \\
 ```
 
 ### Alignment
+The first major feature of the `Text.Tabl` library is the ability to specify
+the alignment of each column of the table. The library provides three alignment
+options represented by the `Alignment` data type. It's three constructors:
+`AlignLeft`, `AlignCentre` and `AlignRight` denote the left, centre and right
+alignments respectively.
 
+It is possible, much like with Haskell functions and their arguments, to only
+partially specify the table alignments, starting from the left. The default
+alignment is `AlignLeft` - which means that passing the empty list `[]` as the
+list of alignments to the `tabl` function will result in a table with all
+columns and their respective cells aligned to the left.
+
+The examples sections below provides a variety of use-cases for many
+combinations.
 
 ### Decoration
 The second of the two major added values provided by the `Text.Tabl` library is
