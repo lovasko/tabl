@@ -5,6 +5,6 @@ module Text.Tabl.Alignment
 -- Alignment style.
 data Alignment
   = AlignLeft   -- "Left      "
-  | AlignRight  -- "  Centre  "
-  | AlignCentre -- "     Right"
+  | AlignCentre -- "  Centre  "
+  | AlignRight  -- "     Right"
 
