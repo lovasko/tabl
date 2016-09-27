@@ -24,6 +24,14 @@ intersperseOn xs bs x = init $ concat $ zipWith glue bs (xs ++ [mempty])
     glue True i  = [x, i]
     glue False i = [i]
 
+-- | Endomorphism on the boolean type.
+bool :: a    -- ^ True option
+     -> a    -- ^ False option
+     -> Bool -- ^ bool
+     -> a    -- ^ result
+bool x _ True  = x
+bool _ y False = y
+
 -- | Create an object by zipping two lists together. The second list is
 -- expected to be one element shorter.
 zipcat :: (Monoid a) -- ^ required for mempty
