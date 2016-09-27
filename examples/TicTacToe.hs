@@ -6,7 +6,6 @@ import Data.Word
 import System.Random
 import Text.Tabl
 
-import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
 
 -- | Table containing the play grid of tic-tac-toe.
@@ -19,4 +18,5 @@ main = do
     mark 0 = " "
     mark 1 = "X"
     mark 2 = "O"
+    mark _ = "?"
 
