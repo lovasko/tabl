@@ -2,7 +2,6 @@
 
 import Text.Tabl
 
-import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
 
 -- | Table containing basic info about programming language creators.
