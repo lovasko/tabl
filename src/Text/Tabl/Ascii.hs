@@ -38,6 +38,7 @@ horizontalLine frow vdecor = zipcat isects dashes
     isects   = map (Text.map conv) vdecor
     conv ' ' = '-'
     conv '|' = '+'
+    conv _   = '?'
 
 -- | Apply both vertical and horizontal decorations to the table.
 applyDecoration :: [Bool]        -- ^ horizontal decoration
