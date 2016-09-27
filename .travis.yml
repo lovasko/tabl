@@ -20,7 +20,6 @@ before_install:
 
 install:
 - stack --no-terminal setup
-- stack --no-terminal install
 
 script:
 - stack build --pedantic
