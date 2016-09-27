@@ -3,7 +3,7 @@ module Text.Tabl.Decoration
 , presence
 ) where
 
--- Decoration style that defines which lines (horizontal or vertical)
+-- | Decoration style that defines which lines (horizontal or vertical)
 -- will be visible in the resulting table.
 data Decoration
   = DecorNone               -- ^ No lines.
