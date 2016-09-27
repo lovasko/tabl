@@ -1,5 +1,6 @@
 module Text.Tabl.Util
-( extend
+( bool
+, extend
 , intersperseOn
 , zipcat
 ) where
