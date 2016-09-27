@@ -11,10 +11,10 @@ numbers :: Int           -- ^ table side size
         -> [[Text.Text]] -- ^ multiplication table 
 numbers n = header : zipWith (:) digits content
   where
-    header = " " : digits
-    digits = map (Text.pack . show) [1..n]
+    header  = " " : digits
+    digits  = map (Text.pack . show) [1..n]
     content = map (map (Text.pack . show)) mults
-    mults = map (flip map [1..n] . (*)) [1..n]
+    mults   = map (flip map [1..n] . (*)) [1..n]
 
 -- | Table containing basic integer products.
 main :: IO ()
