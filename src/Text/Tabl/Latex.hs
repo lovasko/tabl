@@ -5,8 +5,8 @@ module Text.Tabl.Latex
 ) where
 
 import Text.Tabl.Alignment
-import Text.Tabl.Decoration
 import Text.Tabl.Util
+
 import qualified Data.Text as Text
 
 -- | Convert the table cell data to LaTeX-compatible form.
