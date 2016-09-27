@@ -3,6 +3,7 @@ module Text.Tabl.Environment
 ) where
 
 -- Output environment.
-data Environment = EnvAscii -- ^ ASCII art suitable for command line
-                 | EnvLatex -- ^ LaTeX source code
+data Environment
+  = EnvAscii -- ^ ASCII art suitable for command line
+  | EnvLatex -- ^ LaTeX source code
 
