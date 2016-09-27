@@ -3,7 +3,8 @@ module Text.Tabl.Alignment
 ) where
 
 -- Alignment style.
-data Alignment = AlignLeft   -- "Left      "
-               | AlignRight  -- "  Centre  "
-               | AlignCentre -- "     Right"
+data Alignment
+  = AlignLeft   -- "Left      "
+  | AlignRight  -- "  Centre  "
+  | AlignCentre -- "     Right"
 
