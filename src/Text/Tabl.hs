@@ -24,7 +24,7 @@ tabl :: Environment   -- ^ output environment
      -> [Alignment]   -- ^ column alignments
      -> [[Text.Text]] -- ^ table cell data
      -> Text.Text     -- ^ final layout
-tabl _ _ _ _ [[]] = ""
+tabl _   _      _      _      [[]]  = ""
 tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
   where
     render EnvAscii = ascii
