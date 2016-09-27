@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Text.Tabl
 ( Alignment(..)
 , Decoration(..)
@@ -24,7 +22,7 @@ tabl :: Environment   -- ^ output environment
      -> [Alignment]   -- ^ column alignments
      -> [[Text.Text]] -- ^ table cell data
      -> Text.Text     -- ^ final layout
-tabl _   _      _      _      [[]]  = ""
+tabl _   _      _      _      [[]]  = Text.empty
 tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
   where
     render EnvAscii = ascii
@@ -32,6 +30,6 @@ tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
     hpres           = presence (length cells + 1) hdecor
     vpres           = presence (length (head cells) + 1) vdecor
     columnCount     = maximum $ map length cells
-    ecells          = map (extend columnCount "") cells
+    ecells          = map (extend columnCount Text.empty) cells
     ealigns         = extend columnCount AlignLeft aligns
 
