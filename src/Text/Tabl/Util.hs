@@ -5,8 +5,6 @@ module Text.Tabl.Util
 , zipcat
 ) where
 
-import Data.Monoid
-
 -- | Extend a list to defined length with one repeated element.
 extend :: Int -- ^ expected length
        -> a   -- ^ element to pad with
