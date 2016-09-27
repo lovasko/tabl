@@ -1,0 +1,24 @@
+name:                tabl
+version:             0.1.0.0
+synopsis:            Table-layout algorithms
+description:         Please see README.md
+homepage:            https://github.com/lovasko/tabl#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Daniel Lovasko
+maintainer:          daniel.lovasko@gmail.com
+copyright:           2016 Daniel Lovasko
+category:            Text
+build-type:          Simple
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Text.Tabl 
+  build-depends:       base >= 4.7 && < 5
+                     , text
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/lovasko/tabl
