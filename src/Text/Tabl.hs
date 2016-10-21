@@ -22,6 +22,7 @@ tabl :: Environment -- ^ output environment
      -> [Alignment] -- ^ column alignments
      -> [[T.Text]]  -- ^ table cell data
      -> T.Text      -- ^ final layout
+tabl _   _      _      _      []    = T.empty
 tabl _   _      _      _      [[]]  = T.empty
 tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
   where
