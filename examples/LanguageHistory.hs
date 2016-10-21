@@ -2,11 +2,11 @@
 
 import Text.Tabl
 
-import qualified Data.Text.IO as Text
+import qualified Data.Text.IO as T
 
 -- | Table containing basic info about programming language creators.
 main :: IO ()
-main = Text.putStrLn $ tabl EnvLatex hdecor vdecor [] info
+main = T.putStrLn $ tabl EnvAscii hdecor vdecor [] info
   where
     hdecor = DecorUnion [DecorOuter, DecorOnly [1]]
     vdecor = DecorAll

@@ -12,17 +12,17 @@ import Text.Tabl.Environment
 import Text.Tabl.Latex
 import Text.Tabl.Util
 
-import qualified Data.Text as Text
+import qualified Data.Text as T
 
 -- | Create a table layout based on specified output environment,
 -- decorations and alignments.
-tabl :: Environment   -- ^ output environment
-     -> Decoration    -- ^ horizontal decoration
-     -> Decoration    -- ^ vertical decoration
-     -> [Alignment]   -- ^ column alignments
-     -> [[Text.Text]] -- ^ table cell data
-     -> Text.Text     -- ^ final layout
-tabl _   _      _      _      [[]]  = Text.empty
+tabl :: Environment -- ^ output environment
+     -> Decoration  -- ^ horizontal decoration
+     -> Decoration  -- ^ vertical decoration
+     -> [Alignment] -- ^ column alignments
+     -> [[T.Text]]  -- ^ table cell data
+     -> T.Text      -- ^ final layout
+tabl _   _      _      _      [[]]  = T.empty
 tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
   where
     render EnvAscii = ascii
@@ -30,6 +30,6 @@ tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
     hpres           = presence (length cells + 1) hdecor
     vpres           = presence (length (head cells) + 1) vdecor
     columnCount     = maximum $ map length cells
-    ecells          = map (extend columnCount Text.empty) cells
+    ecells          = map (extend columnCount T.empty) cells
     ealigns         = extend columnCount AlignLeft aligns
 

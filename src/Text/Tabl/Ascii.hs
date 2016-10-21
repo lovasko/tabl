@@ -7,19 +7,19 @@ module Text.Tabl.Ascii
 import Text.Tabl.Alignment
 import Text.Tabl.Util
 
-import qualified Data.Text as Text
+import qualified Data.Text as T
 
 -- | Compute the greatest cell width of each column.
-columnWidths :: [[Text.Text]] -- ^ table cell data
+columnWidths :: [[T.Text]] -- ^ table cell data
              -> [Int]      -- ^ column widths
 columnWidths cells = foldr combine zeros cells
   where
     zeros   = replicate (length $ head cells) 0
-    combine = zipWith (\txt len -> max len (Text.length txt))
+    combine = zipWith (\txt len -> max len (T.length txt))
 
 -- | Convert decoration presence to actual decorator text.
-verticalDecorators :: [Bool]      -- ^ presence
-                   -> [Text.Text] -- ^ decorators
+verticalDecorators :: [Bool]   -- ^ presence
+                   -> [T.Text] -- ^ decorators
 verticalDecorators pres  = [left $ head pres]
                         ++ map mid (drop 1 $ init pres)
                         ++ [right $ last pres]
@@ -29,22 +29,22 @@ verticalDecorators pres  = [left $ head pres]
     right = bool "  |" ""
 
 -- | Create the decorative horizontal line.
-horizontalLine :: [Text.Text] -- ^ first row
-               -> [Text.Text] -- ^ vertical decoration
-               -> Text.Text   -- ^ horizontal line
+horizontalLine :: [T.Text] -- ^ first row
+               -> [T.Text] -- ^ vertical decoration
+               -> T.Text   -- ^ horizontal line
 horizontalLine frow vdecor = zipcat isects dashes
   where
-    dashes   = map (\cell -> Text.replicate (Text.length cell) "-") frow
-    isects   = map (Text.map conv) vdecor
+    dashes   = map (\cell -> T.replicate (T.length cell) "-") frow
+    isects   = map (T.map conv) vdecor
     conv ' ' = '-'
     conv '|' = '+'
     conv _   = '?'
 
 -- | Apply both vertical and horizontal decorations to the table.
-applyDecoration :: [Bool]        -- ^ horizontal decoration
-                -> [Bool]        -- ^ vertical decoration
-                -> [[Text.Text]] -- ^ table cell data
-                -> [Text.Text]   -- ^ decorated rows
+applyDecoration :: [Bool]     -- ^ horizontal decoration
+                -> [Bool]     -- ^ vertical decoration
+                -> [[T.Text]] -- ^ table cell data
+                -> [T.Text]   -- ^ decorated rows
 applyDecoration hpres vpres cells = intersperseOn rows hpres hline
   where
     vdecor = verticalDecorators vpres
@@ -54,28 +54,28 @@ applyDecoration hpres vpres cells = intersperseOn rows hpres hline
 -- | Align a cell content based on specified width and style.
 alignCell :: Alignment -- ^ alignment style
           -> Int       -- ^ width
-          -> Text.Text -- ^ text
-          -> Text.Text -- ^ aligned text
-alignCell AlignLeft   = flip Text.justifyLeft  ' '
-alignCell AlignRight  = flip Text.justifyRight ' '
-alignCell AlignCentre = flip Text.center       ' '
+          -> T.Text    -- ^ text
+          -> T.Text    -- ^ aligned text
+alignCell AlignLeft   = flip T.justifyLeft  ' '
+alignCell AlignRight  = flip T.justifyRight ' '
+alignCell AlignCentre = flip T.center       ' '
 
 -- | Align each cell of the table based on the width and alignment of
 -- the column it is in.
-alignCells :: [[Text.Text]]  -- ^ table cell data
-           -> [Int]          -- ^ column widths
-           -> [Alignment]    -- ^ column alignments
-           -> [[Text.Text]]  -- ^ aligned table cell data
+alignCells :: [[T.Text]]  -- ^ table cell data
+           -> [Int]       -- ^ column widths
+           -> [Alignment] -- ^ column alignments
+           -> [[T.Text]]  -- ^ aligned table cell data
 alignCells cells widths aligns = map (zipWith3 alignCell aligns widths) cells
 
 -- | Create a table layout using elements of ASCII art, thus making the table
 -- suitable for the command line environment.
-ascii :: [Bool]        -- ^ horizontal decoration
-      -> [Bool]        -- ^ vertical decoration
-      -> [Alignment]   -- ^ column alignments
-      -> [[Text.Text]] -- ^ table cell data
-      -> Text.Text     -- ^ table
-ascii hpres vpres aligns cells = Text.intercalate "\n" drows
+ascii :: [Bool]      -- ^ horizontal decoration
+      -> [Bool]      -- ^ vertical decoration
+      -> [Alignment] -- ^ column alignments
+      -> [[T.Text]]  -- ^ table cell data
+      -> T.Text      -- ^ table
+ascii hpres vpres aligns cells = T.intercalate "\n" drows
   where
     drows  = applyDecoration hpres vpres acells
     acells = alignCells cells (columnWidths cells) aligns

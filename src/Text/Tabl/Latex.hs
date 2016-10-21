@@ -7,20 +7,20 @@ module Text.Tabl.Latex
 import Text.Tabl.Alignment
 import Text.Tabl.Util
 
-import qualified Data.Text as Text
+import qualified Data.Text as T
 
 -- | Convert the table cell data to LaTeX-compatible form.
-createTable :: [[Text.Text]] -- ^ table cells
-            -> [Text.Text]   -- ^ latexified rows
-createTable = map (Text.append " \\\\" . Text.intercalate " & ")
+createTable :: [[T.Text]] -- ^ table cells
+            -> [T.Text]   -- ^ latexified rows
+createTable = map (T.append " \\\\" . T.intercalate " & ")
 
 -- | Create the table header with vertical decoration and column alignments.
 alignSpecifier :: [Bool]      -- ^ vertical decoration
                -> [Alignment] -- ^ column alignments
-               -> Text.Text   -- ^ header
-alignSpecifier vpres aligns = Text.concat ["{ ", info, "}"]
+               -> T.Text      -- ^ header
+alignSpecifier vpres aligns = T.concat ["{ ", info, "}"]
   where
-    info               = Text.concat $ intersperseOn letters vpres "| "
+    info               = T.concat $ intersperseOn letters vpres "| "
     letters            = map letter aligns
     letter AlignLeft   = "l "
     letter AlignRight  = "r "
@@ -28,17 +28,17 @@ alignSpecifier vpres aligns = Text.concat ["{ ", info, "}"]
 
 -- | Create a LaTeX-compatible source code that represents the requested
 -- table layout.
-latex :: [Bool]        -- ^ horizontal decoration
-      -> [Bool]        -- ^ vertical decoration
-      -> [Alignment]   -- ^ column alignments
-      -> [[Text.Text]] -- ^ table cell data
-      -> Text.Text     -- ^ table
+latex :: [Bool]      -- ^ horizontal decoration
+      -> [Bool]      -- ^ vertical decoration
+      -> [Alignment] -- ^ column alignments
+      -> [[T.Text]]  -- ^ table cell data
+      -> T.Text      -- ^ table
 latex hpres vpres aligns cells =
-  Text.concat [ "\\begin{tabular}"
-              ,  alignSpecifier vpres aligns
-              ,  "\n"
-              ,  Text.unlines table
-              ,  "\\end{tabular}" ]
+  T.concat [ "\\begin{tabular}"
+           ,  alignSpecifier vpres aligns
+           ,  "\n"
+           ,  T.unlines table
+           ,  "\\end{tabular}" ]
   where
-    table  = intersperseOn (createTable cells) hpres "\\hline"
+    table = intersperseOn (createTable cells) hpres "\\hline"
 
