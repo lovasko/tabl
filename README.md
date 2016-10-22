@@ -1,8 +1,7 @@
 # Text.Tabl
-`Text.Tabl` is a Haskell module that provides an easy way of arranging
-multiple `Data.Text.Text` instances into a single table layout, while
-providing means of alignment and visual decoration. The only exported function
-of the module is `tabl`:
+`Text.Tabl` is a Haskell module that arranges multiple `Data.Text.Text`
+instances into a single table layout, while providing means of alignment
+and visual decoration. The only exported function of the module is `tabl`:
 
 ```haskell
 tabl :: Environment -- ^ output environment
