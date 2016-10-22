@@ -25,6 +25,15 @@ $ ./LanguageHistory
 +----------+------+------------------+
 ```
 
+## Dependencies
+`Text.Tabl` strives to be as lightweight as possible and depends only on
+the following two packages:
+* `base`
+* `text`
+
+It is written in the Haskell 2010 language and uses the
+`OverloadedStrings` extension.
+
 ## Settings
 The following sections provide detailed description of the layout settings,
 which can be separated into three categories: environment adaptation, column
