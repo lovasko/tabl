@@ -9,8 +9,8 @@ tabl :: Environment -- ^ output environment
      -> Decoration  -- ^ horizontal decorations
      -> Decoration  -- ^ vertical decorations
      -> [Alignment] -- ^ column alignments
-     -> [[Text]]    -- ^ table cell data
-     -> Text        -- ^ resulting table
+     -> [[T.Text]]  -- ^ table cell data
+     -> T.Text      -- ^ resulting table
 ```
 
 The output of the `tabl` function within the ASCII/command-line
@@ -117,10 +117,10 @@ The following code recreates the table from the introductory section:
 {-# LANGUAGE OverloadedStrings #-}
 
 import Text.Tabl
-import Data.Text.IO as Text
+import Data.Text.IO as T
 
 main :: IO ()
-main = Text.putStrLn $ tabl EnvAscii hdecor vdecor [] info
+main = T.putStrLn $ tabl EnvAscii hdecor vdecor [] info
   where
     hdecor = DecorUnion [DecorOuter, DecorOnly [1]]
     vdecor = DecorAll
@@ -137,12 +137,12 @@ the system:
 ```haskell
 import System.Posix.User
 import Text.Tabl
-import qualified Data.Text as Text
+import qualified Data.Text as T
 
 -- | Create a table row for one user entry.
-createRow :: UserEntry   -- ^ user
-          -> [Text.Text] -- ^ table row
-createRow ue = map Text.pack [show $ userID ue, userName ue, userGecos ue]
+createRow :: UserEntry -- ^ user
+          -> [T.Text]  -- ^ table row
+createRow ue = map T.pack [show $ userID ue, userName ue, userGecos ue]
 
 -- | Print all system users and their respective basic information.
 main :: IO ()
@@ -176,14 +176,14 @@ import Data.List.Split
 import Data.Word
 import System.Random
 import Text.Tabl
-import qualified Data.Text as Text
-import qualified Data.Text.IO as Text
+import qualified Data.Text as T
+import qualified Data.Text.IO as T
 
 main :: IO ()
 main = do
   fields <- replicateM 9 randomIO :: IO [Word8]
   let table = chunksOf 3 $ map (mark . (`mod` 3)) fields
-  Text.putStrLn $ tabl EnvAscii DecorAll DecorAll (repeat AlignCentre) table
+  T.putStrLn $ tabl EnvAscii DecorAll DecorAll (repeat AlignCentre) table
   where
     mark 0 = " "
     mark 1 = "X"
@@ -211,16 +211,16 @@ table based on the provided integer `n`:
 
 import System.Environment
 import Text.Tabl
-import qualified Data.Text as Text
-import qualified Data.Text.IO as Text
+import qualified Data.Text as T
+import qualified Data.Text.IO as T
 
 numbers :: Int
-        -> [[Text.Text]]
+        -> [[T.Text]]
 numbers n = header : zipWith (:) digits content
   where
     header = " " : digits
-    digits = map (Text.pack . show) [1..n]
-    content = map (map (Text.pack . show)) mults
+    digits = map (T.pack . show) [1..n]
+    content = map (map (T.pack . show)) mults
     mults = map (flip map [1..n] . (*)) [1..n]
 
 main :: IO ()
@@ -229,7 +229,7 @@ main = do
   let hdecor = DecorOnly [1]
   let vdecor = DecorOnly [1]
   let aligns = repeat AlignRight
-  Text.putStrLn $ tabl EnvAscii hdecor vdecor aligns (numbers (read n))
+  T.putStrLn $ tabl EnvAscii hdecor vdecor aligns (numbers (read n))
 ```
 
 When running the code with e.g. `n = 7`:
