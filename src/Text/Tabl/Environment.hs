@@ -7,4 +7,5 @@ module Text.Tabl.Environment
 data Environment
   = EnvAscii -- ^ ASCII art suitable for command line
   | EnvLatex -- ^ LaTeX source code
+  deriving (Show)
 

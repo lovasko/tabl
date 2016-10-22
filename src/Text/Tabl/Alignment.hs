@@ -8,4 +8,5 @@ data Alignment
   = AlignLeft   -- ^ "Left      "
   | AlignCentre -- ^ "  Centre  "
   | AlignRight  -- ^ "     Right"
+  deriving (Show)
 

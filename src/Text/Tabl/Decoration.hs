@@ -14,6 +14,7 @@ data Decoration
   | DecorExcept [Int]       -- ^ All but certain lines.
   | DecorUnion [Decoration] -- ^ All lines from more decorations.
   | DecorIsect [Decoration] -- ^ Only intersecting lines.
+  deriving (Show)
 
 -- | Convert a decoration to a list of presence information.
 presence :: Int        -- ^ width
