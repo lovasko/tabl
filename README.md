@@ -35,24 +35,26 @@ It is written in the Haskell 2010 language and uses the
 `OverloadedStrings` extension.
 
 ## API
-The following sections provide detailed description of the layout settings,
-which can be separated into three categories: environment adaptation, column
-alignments, and both vertical and horizontal decoration.
+The following sections provide detailed description of the layout
+settings, which can be separated into three categories: environment
+adaptation, column alignments, and both vertical and horizontal
+decoration.
 
 ### Environment
-The meaning and realisation of a table layout is dependant on the context it
-appears in: a Markdown or HTML table is different from a ASCII-art one
+The meaning and realisation of a table layout is dependant on the context
+it appears in: a Markdown or HTML table is different from a ASCII-art one
 showcased in the introductory section. The `Text.Tabl` library currently
-supports two contexts - ASCII-art and LaTeX, represented by type ` Environment`
-with two constructors, both of zero arity: `EnvAscii` and `EnvLatex`.
+supports two contexts - ASCII-art and LaTeX, represented by type `
+Environment` with two constructors, both of zero arity: `EnvAscii` and
+`EnvLatex`.
 
 The way that the codebase is organised makes adding new environments easy:
-apart from the actual layout code, the process boils down to creating a new 
-`Environment` constructor and adding the appropriate pattern matching rule in
-the main `tabl` function.
+apart from the actual layout code, the process boils down to creating a
+new `Environment` constructor and adding the appropriate pattern matching
+rule in the main `tabl` function.
 
-While the introductory example is using the `EnvAscii` environment, the output
-of equivalent table within the `EnvLatex` would look like this:
+While the introductory example is using the `EnvAscii` environment, the
+output of equivalent table within the `EnvLatex` would look like this:
 ```tex
 \begin{tabular}{ | l | l | l | }
 \hline \\
@@ -66,30 +68,31 @@ Python & 1991 & Guido van Rossum \\
 ```
 
 ### Alignment
-The first major feature of the `Text.Tabl` library is the ability to specify
-the alignment of each column of the table. The library provides three alignment
-options represented by the `Alignment` data type. It's three constructors:
-`AlignLeft`, `AlignCentre` and `AlignRight` denote the left, centre and right
-alignments respectively.
+The first major feature of the `Text.Tabl` library is the ability to
+specify the alignment of each column of the table. The library provides
+three alignment options represented by the `Alignment` data type. It's
+three constructors: `AlignLeft`, `AlignCentre` and `AlignRight` denote the
+left, centre and right alignments respectively.
 
-It is possible, much like with Haskell functions and their arguments, to only
-partially specify the table alignments, starting from the left. The default
-alignment is `AlignLeft` - which means that passing the empty list `[]` as the
-list of alignments to the `tabl` function will result in a table with all
-columns and their respective cells aligned to the left.
+It is possible, much like with Haskell functions and their arguments, to
+only partially specify the table alignments, starting from the left. The
+default alignment is `AlignLeft` - which means that passing the empty list
+`[]` as the list of alignments to the `tabl` function will result in a
+table with all columns and their respective cells aligned to the left.
 
 The examples sections below provides a variety of use-cases for many
 combinations.
 
 ### Decoration
-The second of the two major added values provided by the `Text.Tabl` library is
-the process of decorating the table by visually separating both and/or rows. 
-Both the decoration process and decoration interface are decomposed into two
-dimensions: horizontal and vertical, while both at being treated equally.
+The second of the two major added values provided by the `Text.Tabl`
+library is the process of decorating the table by visually separating both
+and/or rows.  Both the decoration process and decoration interface are
+decomposed into two dimensions: horizontal and vertical, while both at
+being treated equally.
 
-Each space between two rows or two columns is indexed, where the top and left
-spaces share the index zero. Therefore, if a table is comprised of `n` rows,
-there are `0..n` positions that could possibly hold decoration.
+Each space between two rows or two columns is indexed, where the top and
+left spaces share the index zero. Therefore, if a table is comprised of
+`n` rows, there are `0..n` positions that could possibly hold decoration.
 
 The description of the decoration is embodied in the `Decoration` type,
 specifically within one (or more) of it's constructors:
@@ -104,20 +107,21 @@ specifically within one (or more) of it's constructors:
 
 Essentially, the most powerful decoration constructors are `DecorOnly` and
 `DecorExcept`, which allow for a precise selection of indices that should
-contain the decoration. Other decoration definitions, such as `DecorInner` or
-`DecorAll` are convenience constructors that help the user achieve a set goal
-without the need to specify the width nor the height of the table.
+contain the decoration. Other decoration definitions, such as `DecorInner`
+or `DecorAll` are convenience constructors that help the user achieve a
+set goal without the need to specify the width nor the height of the
+table.
 
-Moreover, the `DecorUnion` and `DecorIsect` constructors are used to perform
-set operations on top of a list of decorations, union and intersection
-respectively.
+Moreover, the `DecorUnion` and `DecorIsect` constructors are used to
+perform set operations on top of a list of decorations, union and
+intersection respectively.
 
-The examples listed below demonstrate various decoration options and can be
-used as a further study material on this topic.
+The examples listed below demonstrate various decoration options and can
+be used as a further study material on this topic.
 
 ## Examples
-The following section contain various examples that use the `Text.Tabl` library
-to render textual data.
+The following section contain various examples that use the `Text.Tabl`
+library to render textual data.
 
 ### Language history
 The following code recreates the table from the introductory section:
@@ -139,8 +143,8 @@ main = T.putStrLn $ tabl EnvAscii hdecor vdecor [] info
 ```
 
 ### List of UNIX system users
-The following code lists all users (their IDs, names and full descriptions) on
-the system:
+The following code lists all users (their IDs, names and full
+descriptions) on the system:
 
 ```haskell
 import System.Posix.User
@@ -211,8 +215,8 @@ $ ./TicTacToe
 ```
 
 ### Multiplication table
-The following code will create a simple elementary-school-level multiplication
-table based on the provided integer `n`:
+The following code will create a simple elementary-school-level
+multiplication table based on the provided integer `n`:
 
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
