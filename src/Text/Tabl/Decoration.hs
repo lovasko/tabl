@@ -1,3 +1,17 @@
+{- |
+Module      : Text.Tabl.Decoration
+Description : Table decoration
+Copyright   : (c) Daniel Lovasko, 2016
+License     : BSD3
+
+Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
+Stability   : stable
+Portability : portable
+
+Definition of type combinators that are used to describe both horizontal
+and vertical table decoration.
+-}
+
 module Text.Tabl.Decoration
 ( Decoration(..)
 , presence

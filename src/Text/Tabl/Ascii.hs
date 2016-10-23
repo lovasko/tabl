@@ -1,3 +1,16 @@
+{- |
+Module      : Text.Tabl.Ascii
+Description : ASCII-art table rendering engine
+Copyright   : (c) Daniel Lovasko, 2016
+License     : BSD3
+
+Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
+Stability   : stable
+Portability : portable
+
+Implementation of the ASCII-art environment for table rendering.
+-}
+
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Tabl.Ascii

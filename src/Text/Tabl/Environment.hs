@@ -1,3 +1,16 @@
+{- |
+Module      : Text.Tabl.Environment
+Description : Table environments
+Copyright   : (c) Daniel Lovasko, 2016
+License     : BSD3
+
+Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
+Stability   : stable
+Portability : portable
+
+Definition of various environments for table rendering.
+-}
+
 module Text.Tabl.Environment
 ( Environment(..)
 ) where

@@ -1,3 +1,16 @@
+{- |
+Module      : Text.Tabl.Latex
+Description : LaTeX table rendering engine
+Copyright   : (c) Daniel Lovasko, 2016
+License     : BSD3
+
+Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
+Stability   : stable
+Portability : portable
+
+Implementation of the LaTeX environment for table rendering.
+-}
+
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Tabl.Latex
