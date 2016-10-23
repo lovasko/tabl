@@ -26,7 +26,7 @@ verticalDecorators pres  = [left $ head pres]
   where
     left  = bool "| "  ""
     mid   = bool " | " " "
-    right = bool "  |" ""
+    right = bool " |"  ""
 
 -- | Create the decorative horizontal line.
 horizontalLine :: [T.Text] -- ^ first row
