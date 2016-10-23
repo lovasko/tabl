@@ -1,3 +1,18 @@
+{- |
+Module      : Text.Tabl
+Description : Table layout engine that provides alginment and decoration
+Copyright   : (c) Daniel Lovasko, 2016
+License     : BSD3
+
+Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
+Stability   : stable
+Portability : portable
+
+Text.Tabl arranges multiple Text instances into a table layout while
+providing means of alignment visual decoration both horizontally and
+vertically.
+-}
+
 module Text.Tabl
 ( Alignment(..)
 , Decoration(..)
