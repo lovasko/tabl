@@ -2,14 +2,13 @@
 Module      : Text.Tabl.Util
 Description : Various utilities
 Copyright   : (c) Daniel Lovasko, 2016
-License     : GPL-3
+License     : BSD3
 
 Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
 Stability   : stable
 Portability : portable
 
-This module provides a set of general utilities that are used across
-the codebase.
+Set of general utilities that are used across the codebase.
 -}
 
 module Text.Tabl.Util
