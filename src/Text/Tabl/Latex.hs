@@ -12,7 +12,7 @@ import qualified Data.Text as T
 -- | Convert the table cell data to LaTeX-compatible form.
 createTable :: [[T.Text]] -- ^ table cells
             -> [T.Text]   -- ^ latexified rows
-createTable = map (T.append " \\\\" . T.intercalate " & ")
+createTable = map (flip T.append " \\\\" . T.intercalate " & ")
 
 -- | Create the table header with vertical decoration and column alignments.
 alignSpecifier :: [Bool]      -- ^ vertical decoration
