@@ -34,7 +34,7 @@ the following two packages:
 It is written in the Haskell 2010 language and uses the
 `OverloadedStrings` extension.
 
-## Settings
+## API
 The following sections provide detailed description of the layout settings,
 which can be separated into three categories: environment adaptation, column
 alignments, and both vertical and horizontal decoration.
