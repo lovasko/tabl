@@ -1,4 +1,7 @@
 # Text.Tabl
+
+[![Build Status](https://travis-ci.org/lovasko/tabl.svg?branch=master)](https://travis-ci.org/lovasko/tabl)
+
 `Text.Tabl` is a Haskell module that arranges multiple `Data.Text.Text`
 instances into a single table layout, while providing means of alignment
 and visual decoration. The only exported function of the module is `tabl`:
