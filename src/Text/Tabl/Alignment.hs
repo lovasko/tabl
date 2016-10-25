@@ -18,8 +18,8 @@ module Text.Tabl.Alignment
 -- | Presentation style that is used to describe the alignment of each
 -- column of the table.
 data Alignment
-  = AlignLeft   -- ^ "Left      "
-  | AlignCentre -- ^ "  Centre  "
-  | AlignRight  -- ^ "     Right"
+  = AlignLeft   -- ^ left alignment
+  | AlignCentre -- ^ centre
+  | AlignRight  -- ^ right alignment
   deriving (Show)
 

@@ -20,14 +20,14 @@ module Text.Tabl.Decoration
 -- | Decoration style that defines which lines (horizontal or vertical)
 -- will be visible in the resulting table.
 data Decoration
-  = DecorNone               -- ^ No lines.
-  | DecorAll                -- ^ All lines.
-  | DecorInner              -- ^ Inner lines.
-  | DecorOuter              -- ^ Outer lines.
-  | DecorOnly [Int]         -- ^ Only certain lines.
-  | DecorExcept [Int]       -- ^ All but certain lines.
-  | DecorUnion [Decoration] -- ^ All lines from more decorations.
-  | DecorIsect [Decoration] -- ^ Only intersecting lines.
+  = DecorNone               -- ^ no lines
+  | DecorAll                -- ^ all lines
+  | DecorInner              -- ^ inner lines
+  | DecorOuter              -- ^ outer lines
+  | DecorOnly [Int]         -- ^ only certain lines
+  | DecorExcept [Int]       -- ^ all but certain lines
+  | DecorUnion [Decoration] -- ^ union of more decorations
+  | DecorIsect [Decoration] -- ^ intersection of more decorations
   deriving (Show)
 
 -- | Convert a decoration to a list of presence information.
