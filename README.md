@@ -15,8 +15,7 @@ tabl :: Environment -- ^ output environment
      -> T.Text      -- ^ resulting table
 ```
 
-The output of the `tabl` function within the ASCII/command-line
-environment (when printed to the `stdout`) can look e.g. like this:
+An example output of the `tabl` function within the ASCII-art environment:
 ```
 $ ./LanguageHistory
 +----------+------+------------------+
@@ -28,6 +27,18 @@ $ ./LanguageHistory
 +----------+------+------------------+
 ```
 
+## Distribution
+Hackage:
+```sh
+$ cabal install tabl
+```
+
+From source:
+```sh
+$ stack build --pedantic --haddock
+```
+
+
 ## Dependencies
 `Text.Tabl` strives to be as lightweight as possible and depends only on
 the following two packages:
@@ -36,6 +47,7 @@ the following two packages:
 
 It is written in the Haskell 2010 language and uses the
 `OverloadedStrings` extension.
+
 
 ## API
 The following sections provide detailed description of the layout
@@ -46,10 +58,10 @@ decoration.
 ### Environment
 The meaning and realisation of a table layout is dependant on the context
 it appears in: a Markdown or HTML table is different from a ASCII-art one
-showcased in the introductory section. The `Text.Tabl` library currently
-supports two contexts - ASCII-art and LaTeX, represented by type `
-Environment` with two constructors, both of zero arity: `EnvAscii` and
-`EnvLatex`.
+showcased in the introductory section. The `Text.Tabl` module currently
+supports two contexts represented by the `Environment` type:
+ * `EnvAscii` denoting the ASCII-art approach
+ * `EnvLatex` denoting the LaTeX source code
 
 The way that the codebase is organised makes adding new environments easy:
 apart from the actual layout code, the process boils down to creating a
@@ -60,9 +72,9 @@ While the introductory example is using the `EnvAscii` environment, the
 output of equivalent table within the `EnvLatex` would look like this:
 ```tex
 \begin{tabular}{ | l | l | l | }
-\hline \\
-Language & Year & Author
-\hline \\
+\hline
+Language & Year & Author \\
+\hline
 C & 1972 & Dennis Ritchie \\
 Lisp & 1958 & John McCarthy \\
 Python & 1991 & Guido van Rossum \\
@@ -71,34 +83,32 @@ Python & 1991 & Guido van Rossum \\
 ```
 
 ### Alignment
-The first major feature of the `Text.Tabl` library is the ability to
-specify the alignment of each column of the table. The library provides
-three alignment options represented by the `Alignment` data type. It's
-three constructors: `AlignLeft`, `AlignCentre` and `AlignRight` denote the
-left, centre and right alignments respectively.
+The library provides three alignment options on per-column basis
+represented by the `Alignment` data type and its constructors:
+ * `AlignLeft`
+ * `AlignCentre`
+ * `AlignRight`
 
 It is possible, much like with Haskell functions and their arguments, to
-only partially specify the table alignments, starting from the left. The
-default alignment is `AlignLeft` - which means that passing the empty list
-`[]` as the list of alignments to the `tabl` function will result in a
-table with all columns and their respective cells aligned to the left.
-
-The examples sections below provides a variety of use-cases for many
-combinations.
+only partially specify the table alignments, starting from the left-most
+column. The default alignment is `AlignLeft` - which means that passing
+the empty list `[]` as the list of alignments to the `tabl` function will
+result in a table with all columns and their respective cells aligned to
+the left.
 
 ### Decoration
-The second of the two major added values provided by the `Text.Tabl`
-library is the process of decorating the table by visually separating both
-and/or rows.  Both the decoration process and decoration interface are
-decomposed into two dimensions: horizontal and vertical, while both at
-being treated equally.
+Another added value by the `Text.Tabl` module is the process of decorating
+the table by visually separating columns and rows. Both the decoration
+process and decoration interface are decomposed into two dimensions:
+horizontal and vertical, while both at being treated equally.
 
 Each space between two rows or two columns is indexed, where the top and
 left spaces share the index zero. Therefore, if a table is comprised of
-`n` rows, there are `0..n` positions that could possibly hold decoration.
+`n` rows, there are (inclusive) `0..n` positions that could possibly hold
+decoration.
 
 The description of the decoration is embodied in the `Decoration` type,
-specifically within one (or more) of it's constructors:
+specifically within one (or more) of its constructors:
  * `DecorNone`
  * `DecorAll`
  * `DecorInner`
@@ -116,7 +126,7 @@ set goal without the need to specify the width nor the height of the
 table.
 
 Moreover, the `DecorUnion` and `DecorIsect` constructors are used to
-perform set operations on top of a list of decorations, union and
+perform set operations on top of a list of decorations - union and
 intersection respectively.
 
 The examples listed below demonstrate various decoration options and can
@@ -132,7 +142,7 @@ The following code recreates the table from the introductory section:
 {-# LANGUAGE OverloadedStrings #-}
 
 import Text.Tabl
-import Data.Text.IO as T
+import qualified Data.Text.IO as T
 
 main :: IO ()
 main = T.putStrLn $ tabl EnvAscii hdecor vdecor [] info
@@ -260,4 +270,14 @@ $ ./Multiply 7
 6 | 6 12 18 24 30 36 42
 7 | 7 14 21 28 35 42 49
 ```
+
+
+## License
+The module is licensed under the 3-clause BSD license (see LICENSE file
+for more information). In case you need a different license, feel free to
+contact the author.
+
+
+## Author
+Daniel Lovasko <daniel.lovasko@gmail.com>
 
