@@ -15,5 +15,9 @@ main :: IO ()
 main = do
   users <- getAllUserEntries
   let cells = map createRow users
-  T.putStrLn $ tabl EnvAscii DecorNone DecorNone [AlignRight] cells
+  T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells
+  where
+    hdecor = DecorNone
+    vdecor = DecorNone
+    aligns = [AlignRight]
 
