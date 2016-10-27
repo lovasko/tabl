@@ -17,29 +17,36 @@ tabl :: Environment -- ^ output environment
 
 An example output of the `tabl` function within the ASCII-art environment:
 ```
-$ ./LanguageHistory
-+----------+------+------------------+
-| Language | Year | Author           |
-+----------+------+------------------+
-| C        | 1972 | Dennis Ritchie   |
-| Lisp     | 1958 | John McCarthy    |
-| Python   | 1991 | Guido van Rossum |
-+----------+------+------------------+
+$ ./Constants
++----------------+---------+-----------+
+| Name           | SI Unit |     Value |
++----------------+---------+-----------+
+| Speed of light | m/s     | 299792458 |
+| Atmosphere     | Pa      |    101325 |
+| Absolute zero  | C       |   -273.15 |
++----------------+---------+-----------+
 ```
 
+
 ## Distribution
-Hackage:
+There are two ways of obtaining the `Text.Tabl` module: Hackage and source
+code from the git repository. While the Hackage version is a stable
+release of the module, the GitHub version is the development branch and
+might not always compile or function properly.
+
+### Hackage
 ```sh
 $ cabal install tabl
 ```
 
-From source:
+### Building from source
 ```sh
+$ git clone https://github.com/lovasko/tabl.git
+$ cd tabl/
 $ stack build --pedantic --haddock
 ```
 
-
-## Dependencies
+### Dependencies
 `Text.Tabl` strives to be as lightweight as possible and depends only on
 the following two packages:
 * `base`
@@ -71,13 +78,13 @@ rule in the main `tabl` function.
 While the introductory example is using the `EnvAscii` environment, the
 output of equivalent table within the `EnvLatex` would look like this:
 ```tex
-\begin{tabular}{ | l | l | l | }
+\begin{tabular}{ | l | l | r | }
 \hline
-Language & Year & Author \\
+Name & SI Unit & Value \\
 \hline
-C & 1972 & Dennis Ritchie \\
-Lisp & 1958 & John McCarthy \\
-Python & 1991 & Guido van Rossum \\
+Speed of light & m/s & 299792458 \\
+Atmosphere & Pa & 101325 \\
+Absolute zero & C & -273.15 \\
 \hline
 \end{tabular}
 ```
@@ -144,15 +151,17 @@ The following code recreates the table from the introductory section:
 import Text.Tabl
 import qualified Data.Text.IO as T
 
+-- | Table containing few physics constants.
 main :: IO ()
-main = T.putStrLn $ tabl EnvAscii hdecor vdecor [] info
+main = T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells 
   where
     hdecor = DecorUnion [DecorOuter, DecorOnly [1]]
     vdecor = DecorAll
-    info = [["Language", "Year", "Author"],
-            ["C", "1972", "Dennis Ritchie"],
-            ["Lisp", "1958", "John McCarthy"],
-            ["Python", "1991", "Guido van Rossum"]]
+    aligns = [AlignLeft, AlignLeft, AlignRight]
+    cells  = [ ["Name", "SI Unit", "Value"]
+             , ["Speed of light", "m/s", "299792458"]
+             , ["Atmosphere", "Pa", "101325"]
+             , ["Absolute zero", "C", "-273.15"] ]
 ```
 
 ### List of UNIX system users
@@ -163,18 +172,24 @@ descriptions) on the system:
 import System.Posix.User
 import Text.Tabl
 import qualified Data.Text as T
+import qualified Data.Text.IO as T
 
 -- | Create a table row for one user entry.
 createRow :: UserEntry -- ^ user
           -> [T.Text]  -- ^ table row
 createRow ue = map T.pack [show $ userID ue, userName ue, userGecos ue]
 
--- | Print all system users and their respective basic information.
+-- | Table containing all system users and their respective basic
+-- information.
 main :: IO ()
 main = do
   users <- getAllUserEntries
   let cells = map createRow users
-  putStrLn $ tabl EnvAscii DecorNone DecorNone [AlignRight] cells
+  T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells
+  where
+    hdecor = DecorNone
+    vdecor = DecorNone
+    aligns = [AlignRight]
 ```
 
 After compiling and running the code, we get:
@@ -199,20 +214,22 @@ child game Tic-tac-toe and renders the playing area:
 import Control.Monad
 import Data.List.Split
 import Data.Word
+import Safe
 import System.Random
 import Text.Tabl
-import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
+-- | Table containing the play grid of tic-tac-toe.
 main :: IO ()
 main = do
-  fields <- replicateM 9 randomIO :: IO [Word8]
-  let table = chunksOf 3 $ map (mark . (`mod` 3)) fields
-  T.putStrLn $ tabl EnvAscii DecorAll DecorAll (repeat AlignCentre) table
+  xs <- replicateM 9 randomIO :: IO [Word8]
+  let cells = chunksOf 3 $ map (mark . (`mod` 3)) xs 
+  T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells
   where
-    mark 0 = " "
-    mark 1 = "X"
-    mark 2 = "O"
+    mark x = lookupJust x [(0, " "), (1, "X"), (2, "O")]
+    hdecor = DecorAll
+    vdecor = DecorAll
+    aligns = []
 ```
 
 An example run of the compiled program:
@@ -239,22 +256,26 @@ import Text.Tabl
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
-numbers :: Int
-        -> [[T.Text]]
+-- | Create the multiplication table.
+numbers :: Int        -- ^ table side size
+        -> [[T.Text]] -- ^ multiplication table
 numbers n = header : zipWith (:) digits content
   where
-    header = " " : digits
-    digits = map (T.pack . show) [1..n]
+    header  = " " : digits
+    digits  = map (T.pack . show) [1..n]
     content = map (map (T.pack . show)) mults
-    mults = map (flip map [1..n] . (*)) [1..n]
+    mults   = map (flip map [1..n] . (*)) [1..n]
 
+-- | Table containing basic integer products.
 main :: IO ()
 main = do
   [n] <- getArgs
-  let hdecor = DecorOnly [1]
-  let vdecor = DecorOnly [1]
-  let aligns = repeat AlignRight
-  T.putStrLn $ tabl EnvAscii hdecor vdecor aligns (numbers (read n))
+  let cells = numbers (read n)
+  T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells
+    where
+      hdecor = DecorOnly [1]
+      vdecor = DecorOnly [1]
+      aligns = repeat AlignRight
 ```
 
 When running the code with e.g. `n = 7`:
