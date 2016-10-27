@@ -20,8 +20,10 @@ numbers n = header : zipWith (:) digits content
 main :: IO ()
 main = do
   [n] <- getArgs
-  let hdecor = DecorOnly [1]
-  let vdecor = DecorOnly [1]
-  let aligns = repeat AlignRight
-  T.putStrLn $ tabl EnvAscii hdecor vdecor aligns (numbers (read n))
+  let cells = numbers (read n)
+  T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells
+    where
+      hdecor = DecorOnly [1]
+      vdecor = DecorOnly [1]
+      aligns = repeat AlignRight
 
