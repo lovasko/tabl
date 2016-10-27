@@ -3,6 +3,7 @@
 import Control.Monad
 import Data.List.Split
 import Data.Word
+import Safe
 import System.Random
 import Text.Tabl
 
@@ -11,12 +12,12 @@ import qualified Data.Text.IO as T
 -- | Table containing the play grid of tic-tac-toe.
 main :: IO ()
 main = do
-  fields <- replicateM 9 randomIO :: IO [Word8]
-  let table = chunksOf 3 $ map (mark . (`mod` 3)) fields
-  T.putStrLn $ tabl EnvAscii DecorAll DecorAll (repeat AlignCentre) table
+  xs <- replicateM 9 randomIO :: IO [Word8]
+  let cells = chunksOf 3 $ map (mark . (`mod` 3)) xs
+  T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells
   where
-    mark 0 = " "
-    mark 1 = "X"
-    mark 2 = "O"
-    mark _ = "?"
+    mark x = lookupJust x [(0, " "), (1, "X"), (2, "O")]
+    hdecor = DecorAll
+    vdecor = DecorAll
+    aligns = []
 
