@@ -1,6 +1,6 @@
 {- |
 Module      : Text.Tabl
-Description : Table layout engine that provides alginment and decoration
+Description : Table layout engine that provides alignment and decoration
 Copyright   : (c) Daniel Lovasko, 2016
 License     : BSD3
 
