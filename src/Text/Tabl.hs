@@ -48,4 +48,3 @@ tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
     columnCount     = maximum $ map length cells
     ecells          = map (extend columnCount T.empty) cells
     ealigns         = extend columnCount AlignLeft aligns
-
