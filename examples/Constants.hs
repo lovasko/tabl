@@ -15,4 +15,3 @@ main = T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells
              , ["Speed of light", "m/s", "299792458"]
              , ["Atmosphere", "Pa", "101325"]
              , ["Absolute zero", "C", "-273.15"] ]
-

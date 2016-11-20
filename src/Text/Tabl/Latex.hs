@@ -54,4 +54,3 @@ latex hpres vpres aligns cells =
            ,  "\\end{tabular}" ]
   where
     table = intersperseOn (createTable cells) hpres "\\hline"
-

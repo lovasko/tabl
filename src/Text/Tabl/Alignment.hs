@@ -22,4 +22,3 @@ data Alignment
   | AlignCentre -- ^ centre
   | AlignRight  -- ^ right alignment
   deriving (Show)
-

@@ -54,4 +54,3 @@ combine fn def n ds = foldr step first presences
     first     = replicate n def
     step      = zipWith fn
     presences = map (presence n) ds
-

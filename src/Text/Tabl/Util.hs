@@ -51,4 +51,3 @@ zipcat :: (Monoid a)
        -> [a] -- ^ second list
        -> a   -- ^ result
 zipcat xs ys = mconcat $ zipWith mappend xs (mappend ys [mempty])
-

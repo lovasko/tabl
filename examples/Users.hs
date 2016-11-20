@@ -20,4 +20,3 @@ main = do
     hdecor = DecorNone
     vdecor = DecorNone
     aligns = [AlignRight]
-

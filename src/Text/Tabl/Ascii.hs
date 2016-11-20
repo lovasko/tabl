@@ -92,4 +92,3 @@ ascii hpres vpres aligns cells = T.intercalate "\n" drows
   where
     drows  = applyDecoration hpres vpres acells
     acells = alignCells cells (columnWidths cells) aligns
-

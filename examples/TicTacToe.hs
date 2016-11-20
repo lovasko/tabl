@@ -20,4 +20,3 @@ main = do
     hdecor = DecorAll
     vdecor = DecorAll
     aligns = []
-

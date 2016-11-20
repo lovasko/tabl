@@ -26,4 +26,3 @@ main = do
       hdecor = DecorOnly [1]
       vdecor = DecorOnly [1]
       aligns = repeat AlignRight
-
