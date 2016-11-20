@@ -1,6 +1,6 @@
 {- |
 Module      : Text.Tabl.Decoration
-Description : Table decoration
+Description : Horizontal and vertical decoration
 Copyright   : (c) Daniel Lovasko, 2016
 License     : BSD3
 
@@ -43,7 +43,7 @@ presence n (DecorExcept is) = map not (presence n (DecorOnly is))
 presence n (DecorUnion ds)  = combine (||) False n ds
 presence n (DecorIsect ds)  = combine (&&) True  n ds
 
--- | Combine multiple decorations into one.
+-- | Combine multiple decorations into one based on a selected function.
 combine :: (Bool -> Bool -> Bool) -- ^ combination function
         -> Bool                   -- ^ default value
         -> Int                    -- ^ width
