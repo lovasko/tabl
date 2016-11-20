@@ -30,7 +30,7 @@ import Text.Tabl.Latex
 import Text.Tabl.Util
 
 
--- | Create a table layout based on specified output environment,
+-- | Create a table layout based on the specified output environment,
 -- decorations and alignments.
 tabl :: Environment -- ^ output environment
      -> Decoration  -- ^ horizontal decoration
