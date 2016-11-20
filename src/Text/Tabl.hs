@@ -20,6 +20,8 @@ module Text.Tabl
 , tabl
 ) where
 
+import qualified Data.Text as T
+
 import Text.Tabl.Alignment
 import Text.Tabl.Ascii
 import Text.Tabl.Decoration
@@ -27,7 +29,6 @@ import Text.Tabl.Environment
 import Text.Tabl.Latex
 import Text.Tabl.Util
 
-import qualified Data.Text as T
 
 -- | Create a table layout based on specified output environment,
 -- decorations and alignments.
