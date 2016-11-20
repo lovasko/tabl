@@ -17,17 +17,19 @@ module Text.Tabl.Latex
 ( latex
 ) where
 
+import qualified Data.Text as T
+
 import Text.Tabl.Alignment
 import Text.Tabl.Util
 
-import qualified Data.Text as T
 
 -- | Convert the table cell data to LaTeX-compatible form.
 createTable :: [[T.Text]] -- ^ table cells
             -> [T.Text]   -- ^ latexified rows
 createTable = map (flip T.append " \\\\" . T.intercalate " & ")
 
--- | Create the table header with vertical decoration and column alignments.
+-- | Create the table header with vertical decoration and column
+-- alignments.
 alignSpecifier :: [Bool]      -- ^ vertical decoration
                -> [Alignment] -- ^ column alignments
                -> T.Text      -- ^ header
@@ -45,12 +47,10 @@ latex :: [Bool]      -- ^ horizontal decoration
       -> [Bool]      -- ^ vertical decoration
       -> [Alignment] -- ^ column alignments
       -> [[T.Text]]  -- ^ table cell data
-      -> T.Text      -- ^ table
-latex hpres vpres aligns cells =
-  T.concat [ "\\begin{tabular}"
-           ,  alignSpecifier vpres aligns
-           ,  "\n"
-           ,  T.unlines table
-           ,  "\\end{tabular}" ]
-  where
-    table = intersperseOn (createTable cells) hpres "\\hline"
+      -> T.Text      -- ^ final layout
+latex hpres vpres aligns cells = T.concat
+  [ "\\begin{tabular}"
+  ,  alignSpecifier vpres aligns
+  ,  "\n"
+  ,  T.unlines $ intersperseOn (createTable cells) hpres "\\hline"
+  ,  "\\end{tabular}" ]
