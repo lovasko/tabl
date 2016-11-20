@@ -44,7 +44,7 @@ tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
   where
     render EnvAscii = ascii
     render EnvLatex = latex
-    hpres           = presence (length cells + 1) hdecor
+    hpres           = presence (length cells        + 1) hdecor
     vpres           = presence (length (head cells) + 1) vdecor
     columnCount     = maximum $ map length cells
     ecells          = map (extend columnCount T.empty) cells
