@@ -9,8 +9,8 @@ Stability   : stable
 Portability : portable
 
 Text.Tabl arranges multiple Text instances into a table layout while
-providing means of alignment visual decoration both horizontally and
-vertically.
+providing means of alignment, and visual decoration both horizontally
+and vertically.
 -}
 
 module Text.Tabl
