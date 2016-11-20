@@ -15,7 +15,7 @@ module Text.Tabl.Alignment
 ( Alignment(..)
 ) where
 
--- | Presentation style that is used to describe the alignment of each
+-- | Presentation style that is used to define the alignment of each
 -- column of the table.
 data Alignment
   = AlignLeft   -- ^ left alignment
