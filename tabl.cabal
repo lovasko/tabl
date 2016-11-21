@@ -23,7 +23,7 @@ library
                      , Text.Tabl.Environment
                      , Text.Tabl.Latex
                      , Text.Tabl.Util
-  build-depends:       base
+  build-depends:       base >= 4.7 && < 5
                      , safe
                      , text
   default-language:    Haskell2010
