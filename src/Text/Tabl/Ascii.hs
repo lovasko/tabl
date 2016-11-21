@@ -17,10 +17,12 @@ module Text.Tabl.Ascii
 ( ascii
 ) where
 
+import Safe
+import qualified Data.Text as T
+
 import Text.Tabl.Alignment
 import Text.Tabl.Util
 
-import qualified Data.Text as T
 
 -- | Compute the greatest cell width of each column.
 columnWidths :: [[T.Text]] -- ^ table cell data
@@ -47,11 +49,9 @@ horizontalLine :: [T.Text] -- ^ first row
                -> T.Text   -- ^ horizontal line
 horizontalLine frow vdecor = zipcat isects dashes
   where
-    dashes   = map (\cell -> T.replicate (T.length cell) "-") frow
-    isects   = map (T.map conv) vdecor
-    conv ' ' = '-'
-    conv '|' = '+'
-    conv _   = '?'
+    dashes = map (\cell -> T.replicate (T.length cell) "-") frow
+    isects = map (T.map conv) vdecor
+    conv c = lookupJustDef '?' c [(' ', '-'), ('|', '+')]
 
 -- | Apply both vertical and horizontal decorations to the table.
 applyDecoration :: [Bool]     -- ^ horizontal decoration

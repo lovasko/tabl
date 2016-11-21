@@ -48,8 +48,9 @@ $ stack build --pedantic --haddock
 
 ### Dependencies
 `Text.Tabl` strives to be as lightweight as possible and depends only on
-the following two packages:
+the following three packages:
 * `base`
+* `safe`
 * `text`
 
 It is written in the Haskell 2010 language and uses the
