@@ -88,7 +88,8 @@ ascii :: [Bool]      -- ^ horizontal decoration
       -> [Alignment] -- ^ column alignments
       -> [[T.Text]]  -- ^ table cell data
       -> T.Text      -- ^ table
-ascii hpres vpres aligns cells = T.intercalate "\n" drows
+ascii hpres vpres aligns cells = T.intercalate "\n" decorated
   where
-    drows  = applyDecoration hpres vpres acells
-    acells = alignCells cells (columnWidths cells) aligns
+    decorated = applyDecoration hpres vpres aligned
+    aligned   = alignCells escaped (columnWidths escaped) aligns
+    escaped   = map (map (T.replace "\n" "\\n" . T.replace "\t" "\\t")) cells
