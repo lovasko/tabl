@@ -1,5 +1,5 @@
 name:                tabl
-version:             0.1.0.0
+version:             1.0.0
 synopsis:            Table layout
 description:         Text.Tabl arranges multiple Text instances into a
                      table layout while providing means of alignment
