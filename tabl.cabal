@@ -1,15 +1,15 @@
 name:                tabl
-version:             1.0.2
+version:             1.0.3
 synopsis:            Table layout
 description:         Text.Tabl arranges multiple Text instances into a
                      table layout while providing means of alignment
                      visual decoration both horizontally and vertically.
 homepage:            https://github.com/lovasko/tabl
-license:             BSD3
+license:             OtherLicense
 license-file:        LICENSE
 author:              Daniel Lovasko <daniel.lovasko@gmail.com>
 maintainer:          Daniel Lovasko <daniel.lovasko@gmail.com>
-copyright:           2016 Daniel Lovasko
+copyright:           2016-2017 Daniel Lovasko
 category:            Text
 build-type:          Simple
 cabal-version:       >=1.10

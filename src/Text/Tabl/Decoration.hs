@@ -1,8 +1,8 @@
 {- |
 Module      : Text.Tabl.Decoration
 Description : Horizontal and vertical decoration
-Copyright   : (c) Daniel Lovasko, 2016
-License     : BSD3
+Copyright   : (c) 2016-2017 Daniel Lovasko
+License     : BSD2
 
 Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
 Stability   : stable
