@@ -35,13 +35,14 @@ columnWidths cells = foldr combine zeros cells
 -- | Convert decoration presence to actual decorator text.
 verticalDecorators :: [Bool]   -- ^ presence
                    -> [T.Text] -- ^ decorators
-verticalDecorators pres  = [left $ head pres]
-                        ++ map mid (drop 1 $ init pres)
-                        ++ [right $ last pres]
+verticalDecorators pres = concat [left, mid, right]
   where
-    left  = bool "| "  ""
-    mid   = bool " | " " "
-    right = bool " |"  ""
+    left       = [leftDecor $ head pres]
+    mid        = map midDecor (tail $ init pres)
+    right      = [rightDecor $ last pres]
+    leftDecor  = bool "| "  ""
+    midDecor   = bool " | " " "
+    rightDecor = bool " |"  ""
 
 -- | Create the decorative horizontal line.
 horizontalLine :: [T.Text] -- ^ first row
