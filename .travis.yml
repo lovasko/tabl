@@ -20,7 +20,12 @@ before_install:
 
 install:
 - stack --no-terminal setup
+- stack --no-terminal install
 
 script:
-- stack build --pedantic --haddock
-
+- travis_wait stack build --pedantic
+- stack haddock
+- stack exec tabl-example-multiply
+- stack exec tabl-example-tictactoe
+- stack exec tabl-example-constants
+- stack exec tabl-example-users
