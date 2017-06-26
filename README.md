@@ -295,11 +295,10 @@ $ ./Multiply 7
 
 
 ## License
-The module is licensed under the 3-clause BSD license (see LICENSE file
-for more information). In case you need a different license, feel free to
-contact the author.
-
+The `tabl` module is licensed under the terms of the 2-clause BSD
+license.  For more information please consult the [LICENSE](LICENSE)
+file. In case you need a different license, feel free to contact the
+author.
 
 ## Author
 Daniel Lovasko <daniel.lovasko@gmail.com>
-
