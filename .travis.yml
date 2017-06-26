@@ -25,7 +25,7 @@ install:
 script:
 - travis_wait stack build --pedantic
 - stack haddock
-- stack exec tabl-example-multiply
+- stack exec tabl-example-users
+- stack exec tabl-example-multiply -- 7
 - stack exec tabl-example-tictactoe
 - stack exec tabl-example-constants
-- stack exec tabl-example-users
