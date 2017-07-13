@@ -35,11 +35,13 @@ alignSpecifier :: [Bool]      -- ^ vertical decoration
                -> T.Text      -- ^ header
 alignSpecifier vpres aligns = T.concat ["{ ", info, "}"]
   where
-    info               = T.concat $ intersperseOn letters vpres "| "
-    letters            = map letter aligns
-    letter AlignLeft   = "l "
-    letter AlignRight  = "r "
-    letter AlignCentre = "c "
+    info                  = T.concat $ intersperseOn letters vpres "| "
+    letters               = map letter aligns
+    letter AlignLeft      = "l "
+    letter AlignRight     = "r "
+    letter AlignCentre    = "c "
+    letter (AlignText _)  = "c "
+    letter (AlignIndex _) = "c "
 
 -- | Create a LaTeX-compatible source code that represents the requested
 -- table layout.
