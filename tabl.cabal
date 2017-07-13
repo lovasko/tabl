@@ -66,4 +66,12 @@ executable tabl-example-constants
 
 source-repository head
   type:     git
+executable tabl-example-decimals
+  hs-source-dirs:      examples
+  main-is:             Decimals.hs
+  build-depends:       base
+                     , tabl
+                     , text
+  default-language:    Haskell2010
+
   location: https://github.com/lovasko/tabl
