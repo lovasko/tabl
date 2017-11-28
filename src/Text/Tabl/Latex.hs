@@ -24,15 +24,17 @@ import Text.Tabl.Util
 
 
 -- | Convert the table cell data to LaTeX-compatible form.
-createTable :: [[T.Text]] -- ^ table cells
-            -> [T.Text]   -- ^ latexified rows
+createTable
+  :: [[T.Text]] -- ^ table cells
+  -> [T.Text]   -- ^ latexified rows
 createTable = map (flip T.append " \\\\" . T.intercalate " & ")
 
 -- | Create the table header with vertical decoration and column
 -- alignments.
-alignSpecifier :: [Bool]      -- ^ vertical decoration
-               -> [Alignment] -- ^ column alignments
-               -> T.Text      -- ^ header
+alignSpecifier
+  :: [Bool]      -- ^ vertical decoration
+  -> [Alignment] -- ^ column alignments
+  -> T.Text      -- ^ header
 alignSpecifier vpres aligns = T.concat ["{ ", info, "}"]
   where
     info                  = T.concat $ intersperseOn letters vpres "| "
@@ -45,11 +47,12 @@ alignSpecifier vpres aligns = T.concat ["{ ", info, "}"]
 
 -- | Create a LaTeX-compatible source code that represents the requested
 -- table layout.
-latex :: [Bool]      -- ^ horizontal decoration
-      -> [Bool]      -- ^ vertical decoration
-      -> [Alignment] -- ^ column alignments
-      -> [[T.Text]]  -- ^ table cell data
-      -> T.Text      -- ^ final layout
+latex
+  :: [Bool]      -- ^ horizontal decoration
+  -> [Bool]      -- ^ vertical decoration
+  -> [Alignment] -- ^ column alignments
+  -> [[T.Text]]  -- ^ table cell data
+  -> T.Text      -- ^ final layout
 latex hpres vpres aligns cells = T.concat
   [ "\\begin{tabular}"
   ,  alignSpecifier vpres aligns

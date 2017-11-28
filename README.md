@@ -7,12 +7,13 @@ instances into a single table layout, while providing means of alignment
 and visual decoration. The only exported function of the module is `tabl`:
 
 ```haskell
-tabl :: Environment -- ^ output environment
-     -> Decoration  -- ^ horizontal decorations
-     -> Decoration  -- ^ vertical decorations
-     -> [Alignment] -- ^ column alignments
-     -> [[T.Text]]  -- ^ table cell data
-     -> T.Text      -- ^ resulting table
+tabl
+  :: Environment -- ^ output environment
+  -> Decoration  -- ^ horizontal decorations
+  -> Decoration  -- ^ vertical decorations
+  -> [Alignment] -- ^ column alignments
+  -> [[T.Text]]  -- ^ table cell data
+  -> T.Text      -- ^ resulting table
 ```
 
 An example output of the `tabl` function within the ASCII-art environment:
@@ -176,8 +177,9 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
 -- | Create a table row for one user entry.
-createRow :: UserEntry -- ^ user
-          -> [T.Text]  -- ^ table row
+createRow
+  :: UserEntry -- ^ user
+  -> [T.Text]  -- ^ table row
 createRow ue = map T.pack [show $ userID ue, userName ue, userGecos ue]
 
 -- | Table containing all system users and their respective basic
@@ -258,8 +260,9 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
 -- | Create the multiplication table.
-numbers :: Int        -- ^ table side size
-        -> [[T.Text]] -- ^ multiplication table
+numbers
+  :: Int        -- ^ table side size
+  -> [[T.Text]] -- ^ multiplication table
 numbers n = header : zipWith (:) digits content
   where
     header  = " " : digits

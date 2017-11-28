@@ -7,8 +7,9 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
 -- | Create the multiplication table.
-numbers :: Int        -- ^ table side size
-        -> [[T.Text]] -- ^ multiplication table
+numbers
+  :: Int        -- ^ table side size
+  -> [[T.Text]] -- ^ multiplication table
 numbers n = header : zipWith (:) digits content
   where
     header  = " " : digits

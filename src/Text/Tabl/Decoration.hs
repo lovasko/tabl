@@ -31,9 +31,10 @@ data Decoration
   deriving (Show)
 
 -- | Convert a decoration to a list of presence information.
-presence :: Int        -- ^ width
-         -> Decoration -- ^ decoration
-         -> [Bool]     -- ^ presence
+presence
+  :: Int        -- ^ width
+  -> Decoration -- ^ decoration
+  -> [Bool]     -- ^ presence
 presence n DecorNone        = replicate n False
 presence n DecorAll         = replicate n True
 presence n DecorInner       = [False] ++ replicate (n-2) True ++ [False]
@@ -44,11 +45,12 @@ presence n (DecorUnion ds)  = combine (||) False n ds
 presence n (DecorIsect ds)  = combine (&&) True  n ds
 
 -- | Combine multiple decorations into one based on a selected function.
-combine :: (Bool -> Bool -> Bool) -- ^ combination function
-        -> Bool                   -- ^ default value
-        -> Int                    -- ^ width
-        -> [Decoration]           -- ^ decorations
-        -> [Bool]                 -- ^ presence
+combine
+  :: (Bool -> Bool -> Bool) -- ^ combination function
+  -> Bool                   -- ^ default value
+  -> Int                    -- ^ width
+  -> [Decoration]           -- ^ decorations
+  -> [Bool]                 -- ^ presence
 combine fn def n ds = foldr step first presences
   where
     first     = replicate n def

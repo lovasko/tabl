@@ -12,8 +12,9 @@ import Text.Tabl.Util
 
 -- | Convert decoration presence to actual decorator text.
 -- TODO six funcs in where clause can be collapsed and unified
-verticalDecorators :: [Bool]   -- ^ presence
-                   -> [T.Text] -- ^ decorators
+verticalDecorators
+  :: [Bool]   -- ^ presence
+  -> [T.Text] -- ^ decorators
 verticalDecorators pres = concat [left, mid, right]
   where
     left  = map (bool "| "  "")  [head pres]
@@ -21,9 +22,10 @@ verticalDecorators pres = concat [left, mid, right]
     right = map (bool  " |" "")  [last pres]
 
 -- | Create the decorative horizontal line.
-line :: [T.Text] -- ^ first row
-     -> [T.Text] -- ^ vertical decoration
-     -> T.Text   -- ^ horizontal line
+line
+  :: [T.Text] -- ^ first row
+  -> [T.Text] -- ^ vertical decoration
+  -> T.Text   -- ^ horizontal line
 line frow vdecor = zipcat isects dashes
   where
     dashes = map (\cell -> T.replicate (T.length cell) "-") frow
@@ -31,10 +33,11 @@ line frow vdecor = zipcat isects dashes
     conv c = lookupJustDef '?' c [(' ', '-'), ('|', '+')]
 
 -- | Apply both vertical and horizontal decorations to the table cells.
-apply :: [Bool]     -- ^ horizontal decoration
-      -> [Bool]     -- ^ vertical decoration
-      -> [[T.Text]] -- ^ table cell data
-      -> T.Text     -- ^ decorated table
+apply
+  :: [Bool]     -- ^ horizontal decoration
+  -> [Bool]     -- ^ vertical decoration
+  -> [[T.Text]] -- ^ table cell data
+  -> T.Text     -- ^ decorated table
 apply hpres vpres cells = T.intercalate "\n" $ intersperseOn rows hpres hline
   where
     vdecor = verticalDecorators vpres

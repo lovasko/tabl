@@ -5,8 +5,9 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
 -- | Create a table row for one user entry.
-row :: UserEntry -- ^ user
-    -> [T.Text]  -- ^ table row
+row
+  :: UserEntry -- ^ user
+  -> [T.Text]  -- ^ table row
 row ue = map T.pack [show $ userID ue, userName ue, userGecos ue]
 
 -- | Table containing all system users and their respective basic
