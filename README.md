@@ -154,7 +154,7 @@ be used as a further study material on this topic.
 The following section contain various examples that use the `Text.Tabl`
 library to render textual data.
 
-### Language history
+### Constants
 The following code recreates the table from the introductory section:
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
