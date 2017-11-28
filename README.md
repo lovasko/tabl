@@ -92,11 +92,20 @@ Absolute zero & C & -273.15 \\
 ```
 
 ### Alignment
-The library provides three alignment options on per-column basis
+The library provides five alignment options on per-column basis
 represented by the `Alignment` data type and its constructors:
  * `AlignLeft`
  * `AlignCentre`
  * `AlignRight`
+ * `AlignText T.Text`
+ * `AlignIndex (T.Text -> Maybe Int)`
+
+The first three alignments provide basic self-describing alignments, while
+`AlignText` allows for centering around a first matching substring within each
+cell. `AlignIndex` provides a bit more flexibility where a function matches a
+position within the cell content, e.g. first non-alphanumeric character or a
+first upper-case letter. In case any of the two latter alignments fail to
+match, the whole content defaults to behaviour identical to `AlignLeft`.
 
 It is possible, much like with Haskell functions and their arguments, to
 only partially specify the table alignments, starting from the left-most
