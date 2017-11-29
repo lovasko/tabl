@@ -354,6 +354,74 @@ The code above produces the following table:
 +----+---------+
 ```
 
+### File sizes
+The following example lists all regular files stored in the `/var/log`
+directory and prints out their sizes in a human-readable form. This example
+showcases the `AlignIndex` which aligns the column based on a predicate. In
+this case, we want to align on the first character that is not a letter from
+the alphabet.
+
+```haskell
+import Control.Arrow
+import Control.Monad.Loops
+import Data.Char
+import System.Posix.Directory
+import System.Posix.Files
+import Text.Tabl
+import qualified Data.Text as T
+import qualified Data.Text.IO as T
+
+-- | Compute a human-readable size of a file.
+computeSize
+  :: FileStatus -- ^ file handle
+  -> String     -- ^ human-readable size representation
+computeSize status
+  | size > (mega * 2) = show (round (size / mega) :: Integer) ++ "MB"
+  | size > (kilo * 2) = show (round (size / kilo) :: Integer) ++ "kB"
+  | otherwise         = show (round size          :: Integer) ++ "B"
+  where
+    size = fromIntegral $ fileSize status :: Double
+    mega = 1024 * 1024                    :: Double
+    kilo = 1024                           :: Double
+
+-- | List all files in a directory.
+listDirectory
+  :: FilePath                  -- ^ directory path
+  -> IO [(String, FileStatus)] -- ^ directory contents (path, status)
+listDirectory dir = do
+  stream <- openDirStream dir
+  names <- unfoldWhileM (not . null) (readDirStream stream)
+  closeDirStream stream
+  handles <- mapM (getFileStatus . (concat [dir, "/"] ++)) names
+  return $ zip names handles
+
+-- | List header files in /var/log and their respective sizes.
+main :: IO ()
+main = do
+  files <- listDirectory "/var/log"
+  let files'  = filter (isRegularFile . snd) files
+  let files'' = map (second computeSize) files'
+
+  let aligns = [AlignLeft, AlignIndex (T.findIndex isAlpha)]
+  let cells  = map (\(name, size) -> [T.pack name, T.pack size]) files''
+  T.putStrLn $ tabl EnvAscii DecorNone DecorAll aligns cells
+```
+
+A sample run could look like this:
+```
+$ ./FileSizes | tail -n +24 | head -n +10
+| CDIS.custom               |   12B  |
+| daily.out                 |    7MB |
+| displaypolicyd.log        |  111kB |
+| displaypolicyd.stdout.log |   50kB |
+| fsck_hfs.log              |  856kB |
+| fuse-ext2_util.log        |    4kB |
+| hdiejectd.log             |    5kB |
+| install.log               |   32MB |
+| monthly.out               |    7kB |
+| notifyd.log               |    0B  |
+```
+
 ## License
 The `tabl` module is licensed under the terms of the 2-clause BSD
 license.  For more information please consult the [LICENSE](LICENSE)
