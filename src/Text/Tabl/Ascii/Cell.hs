@@ -1,3 +1,17 @@
+{- |
+Module      : Text.Tabl.Ascii.Cell
+Description : ASCII-art table cell layout and alignment
+Copyright   : (c) 2016-2017 Daniel Lovasko
+License     : BSD2
+
+Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
+Stability   : stable
+Portability : portable
+
+Implementation of the ASCII-art environment for table rendering - application
+of the selected alignments to each table cell.
+-}
+
 module Text.Tabl.Ascii.Cell
 ( apply
 ) where

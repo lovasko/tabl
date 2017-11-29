@@ -1,3 +1,17 @@
+{- |
+Module      : Text.Tabl.Ascii.Decoration
+Description : ASCII-art table decoration
+Copyright   : (c) 2016-2017 Daniel Lovasko
+License     : BSD2
+
+Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
+Stability   : stable
+Portability : portable
+
+Implementation of the ASCII-art environment for table rendering - visual
+decoration of the table.
+-}
+
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Tabl.Ascii.Decoration
