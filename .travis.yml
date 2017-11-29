@@ -30,3 +30,4 @@ script:
 - stack exec tabl-example-tictactoe
 - stack exec tabl-example-constants
 - stack exec tabl-example-decimals
+- stack exec tabl-example-file-sizes
