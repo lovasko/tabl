@@ -16,6 +16,7 @@ module Text.Tabl.Ascii.Cell
 ( apply
 ) where
 
+import Data.Maybe
 import qualified Data.Text as T
 
 import Text.Tabl.Alignment
@@ -43,7 +44,7 @@ split (AlignText needle) text = (before, match, after)
     (match, after) = T.splitAt (T.length needle) rest
 split (AlignIndex func)  text = (before, match, after)
   where
-    (before, rest) = T.splitAt (maybe (T.length text) id (func text)) text
+    (before, rest) = T.splitAt (fromMaybe (T.length text) (func text)) text
     (match, after) = T.splitAt 1 rest
 
 -- | Stretch a cell with whitespace based on specified widths.
