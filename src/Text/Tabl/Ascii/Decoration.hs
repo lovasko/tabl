@@ -11,7 +11,6 @@ import Text.Tabl.Util
 
 
 -- | Convert decoration presence to actual decorator text.
--- TODO six funcs in where clause can be collapsed and unified
 verticalDecorators
   :: [Bool]   -- ^ presence
   -> [T.Text] -- ^ decorators
