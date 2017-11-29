@@ -27,7 +27,7 @@ script:
 - stack haddock
 - stack exec tabl-example-users
 - stack exec tabl-example-multiply -- 7
-- stack exec tabl-example-tictactoe
+- stack exec tabl-example-tic-tac-toe
 - stack exec tabl-example-constants
 - stack exec tabl-example-decimals
 - stack exec tabl-example-file-sizes

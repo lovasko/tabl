@@ -47,7 +47,7 @@ executable tabl-example-multiply
                      , text
   default-language:    Haskell2010
 
-executable tabl-example-tictactoe
+executable tabl-example-tic-tac-toe
   hs-source-dirs:      examples
   main-is:             TicTacToe.hs
   build-depends:       base
