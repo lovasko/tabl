@@ -305,6 +305,54 @@ $ ./Multiply 7
 7 | 7 14 21 28 35 42 49
 ```
 
+### Decimals
+The following creates a table of values `100/n`, where `0 < n < 21`. This
+example showcases alignment around the decimal dot character, which increases
+the readability of floating-point numbers.
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import Text.Tabl
+import qualified Data.Text as T
+import qualified Data.Text.IO as T
+
+main :: IO ()
+main = T.putStrLn $ tabl EnvAscii DecorOuter DecorAll aligns cells
+  where
+    aligns = [AlignRight, AlignText "."]
+    cells  = zipWith (\x y -> [x, y]) xs ys
+    xs     = map (T.pack . show) nums
+    ys     = map (T.pack . take 5 . show . over) (map fromIntegral nums)
+    nums   = [1..20] :: [Integer]
+    over   = ((100.0 :: Double) /)
+```
+
+The code above produces the following table:
+```
++----+---------+
+|  1 | 100.0   |
+|  2 |  50.0   |
+|  3 |  33.33  |
+|  4 |  25.0   |
+|  5 |  20.0   |
+|  6 |  16.66  |
+|  7 |  14.28  |
+|  8 |  12.5   |
+|  9 |  11.11  |
+| 10 |  10.0   |
+| 11 |   9.090 |
+| 12 |   8.333 |
+| 13 |   7.692 |
+| 14 |   7.142 |
+| 15 |   6.666 |
+| 16 |   6.25  |
+| 17 |   5.882 |
+| 18 |   5.555 |
+| 19 |   5.263 |
+| 20 |   5.0   |
++----+---------+
+```
 
 ## License
 The `tabl` module is licensed under the terms of the 2-clause BSD
