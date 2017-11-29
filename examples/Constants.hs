@@ -6,7 +6,7 @@ import qualified Data.Text.IO as T
 
 -- | Table containing few physics constants.
 main :: IO ()
-main = T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells 
+main = T.putStrLn $ tabl EnvAscii hdecor vdecor aligns cells
   where
     hdecor = DecorUnion [DecorOuter, DecorOnly [1]]
     vdecor = DecorAll

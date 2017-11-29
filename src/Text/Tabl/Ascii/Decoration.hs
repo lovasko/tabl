@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Tabl.Ascii.Decoration
-( apply 
+( apply
 ) where
 
 import Safe
