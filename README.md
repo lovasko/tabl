@@ -330,6 +330,7 @@ main = T.putStrLn $ tabl EnvAscii DecorOuter DecorAll aligns cells
 
 The code above produces the following table:
 ```
+$ ./Decimals
 +----+---------+
 |  1 | 100.0   |
 |  2 |  50.0   |
