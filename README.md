@@ -315,45 +315,47 @@ the readability of floating-point numbers.
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
 
+import System.Environment
 import Text.Tabl
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
-main :: IO ()
-main = T.putStrLn $ tabl EnvAscii DecorOuter DecorAll aligns cells
+-- | Create the division table.
+table
+  :: Int    -- ^ number of rows
+  -> T.Text -- ^ resulting table
+table n = tabl EnvAscii hdecor vdecor aligns cells
   where
+    hdecor = DecorUnion [DecorIf (\x -> mod x 5 == 0), DecorOuter]
+    vdecor = DecorAll
     aligns = [AlignRight, AlignText "."]
     cells  = zipWith (\x y -> [x, y]) xs ys
-    xs     = map (T.pack . show) nums
-    ys     = map (T.pack . take 5 . show . over) (map fromIntegral nums)
-    nums   = [1..20] :: [Integer]
-    over   = ((100.0 :: Double) /)
+    xs     = map (T.pack . show . round) nums
+    ys     = map (T.pack . take 5 . show . (100.0 /)) nums
+    nums   = take n $ iterate (+1.0) 1.0
+
+main :: IO ()
+main = getArgs >>= (\[n] -> T.putStrLn (table (read n)))
 ```
 
 The code above produces the following table:
 ```
-$ ./Decimals
+$ ./Decimals 12
 +----+---------+
 |  1 | 100.0   |
 |  2 |  50.0   |
 |  3 |  33.33  |
 |  4 |  25.0   |
 |  5 |  20.0   |
++----+---------+
 |  6 |  16.66  |
 |  7 |  14.28  |
 |  8 |  12.5   |
 |  9 |  11.11  |
 | 10 |  10.0   |
++----+---------+
 | 11 |   9.090 |
 | 12 |   8.333 |
-| 13 |   7.692 |
-| 14 |   7.142 |
-| 15 |   6.666 |
-| 16 |   6.25  |
-| 17 |   5.882 |
-| 18 |   5.555 |
-| 19 |   5.263 |
-| 20 |   5.0   |
 +----+---------+
 ```
 
