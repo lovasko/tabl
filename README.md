@@ -147,8 +147,10 @@ Moreover, the `DecorUnion` and `DecorIsect` constructors are used to
 perform set operations on top of a list of decorations - union and
 intersection respectively.
 
-The examples listed below demonstrate various decoration options and can
-be used as a further study material on this topic.
+It is important to note that none of the constructors that take a list as an
+argument work with infinite lists, as they would just block indefinitely. The
+examples listed below demonstrate various decoration options and can be used as
+a further study material on this topic.
 
 ## Examples
 The following section contain various examples that use the `Text.Tabl`
