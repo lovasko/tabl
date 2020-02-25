@@ -29,6 +29,7 @@ data Decoration
   | DecorUnion [Decoration] -- ^ union of more decorations
   | DecorIsect [Decoration] -- ^ intersection of more decorations
   | DecorIf (Int -> Bool)   -- ^ based on a predicate result
+  | DecorNegate Decoration  -- ^ opposite of a decoration
 
 -- | Convert a decoration to a list of presence information.
 presence
@@ -44,6 +45,7 @@ presence n (DecorExcept is) = map not (presence n (DecorOnly is))
 presence n (DecorUnion ds)  = combine (||) False n ds
 presence n (DecorIsect ds)  = combine (&&) True  n ds
 presence n (DecorIf func)   = map func [0..(n-1)]
+presence n (DecorNegate d)  = map not (presence n d)
 
 -- | Combine multiple decorations into one based on a selected function.
 combine
