@@ -43,10 +43,19 @@ tabl _   _      _      _      []    = T.empty
 tabl _   _      _      _      [[]]  = T.empty
 tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
   where
+    -- Alternative to a type-class.
     render EnvAscii = ascii
     render EnvLatex = latex
+
+    -- Compute the locations of horizontal and vertical decorations.
     hpres           = presence (length cells        + 1) hdecor
     vpres           = presence (length (head cells) + 1) vdecor
-    columnCount     = maximum $ map length cells
+
+    -- Fill the rows with fewer columns with empty strings.
     ecells          = map (extend columnCount T.empty) cells
+
+    -- Assume alignment to the left for the columns without specification.
     ealigns         = extend columnCount AlignLeft aligns
+
+    -- Compute the final number of columns of the table.
+    columnCount     = maximum $ map length cells
