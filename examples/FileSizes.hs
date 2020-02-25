@@ -40,4 +40,4 @@ main = do
 
   let aligns = [AlignLeft, AlignIndex (T.findIndex isAlpha)]
   let cells  = map (\(name, size) -> [T.pack name, T.pack size]) files''
-  T.putStrLn $ tabl EnvAscii DecorNone DecorAll aligns cells
+  T.putStrLn $ tabl EnvAscii (DecorNegate DecorAll) DecorAll aligns cells

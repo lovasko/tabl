@@ -13,6 +13,6 @@ row ue = map T.pack [show $ userID ue, userName ue, userGecos ue]
 -- | Table containing all system users and their respective basic
 -- information.
 main :: IO ()
-main = do
+main = let decorNone = (DecorNegate DecorAll) in do
   users <- getAllUserEntries
-  T.putStrLn $ tabl EnvAscii DecorNone DecorNone [AlignRight] (map row users)
+  T.putStrLn $ tabl EnvAscii decorNone decorNone [AlignRight] (map row users)

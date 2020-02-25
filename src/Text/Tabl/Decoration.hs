@@ -20,12 +20,9 @@ module Text.Tabl.Decoration
 -- | Decoration style that defines which lines (horizontal or vertical)
 -- will be visible in the resulting table.
 data Decoration
-  = DecorNone               -- ^ no lines
-  | DecorAll                -- ^ all lines
-  | DecorInner              -- ^ inner lines
+  = DecorAll                -- ^ all lines
   | DecorOuter              -- ^ outer lines
   | DecorOnly [Int]         -- ^ only certain lines
-  | DecorExcept [Int]       -- ^ all but certain lines
   | DecorUnion [Decoration] -- ^ union of more decorations
   | DecorIsect [Decoration] -- ^ intersection of more decorations
   | DecorIf (Int -> Bool)   -- ^ based on a predicate result
@@ -36,12 +33,9 @@ presence
   :: Int        -- ^ width
   -> Decoration -- ^ decoration
   -> [Bool]     -- ^ presence
-presence n DecorNone        = replicate n False
 presence n DecorAll         = replicate n True
-presence n DecorInner       = [False] ++ replicate (n-2) True ++ [False]
 presence n DecorOuter       = [True] ++ replicate (n-2) False ++ [True]
 presence n (DecorOnly is)   = map (`elem` is) [0..(n-1)]
-presence n (DecorExcept is) = map not (presence n (DecorOnly is))
 presence n (DecorUnion ds)  = combine (||) False n ds
 presence n (DecorIsect ds)  = combine (&&) True  n ds
 presence n (DecorIf func)   = map func [0..(n-1)]
