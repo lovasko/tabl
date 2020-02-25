@@ -1,7 +1,7 @@
 {- |
 Module      : Text.Tabl.Latex
 Description : LaTeX table rendering engine
-Copyright   : (c) 2016-2017 Daniel Lovasko
+Copyright   : (c) 2016-2020 Daniel Lovasko
 License     : BSD2
 
 Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>

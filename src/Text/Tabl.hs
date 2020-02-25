@@ -1,7 +1,7 @@
 {- |
 Module      : Text.Tabl
 Description : Table layout engine that provides alignment and decoration
-Copyright   : (c) 2016-2017 Daniel Lovasko
+Copyright   : (c) 2016-2020 Daniel Lovasko
 License     : BSD2
 
 Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>

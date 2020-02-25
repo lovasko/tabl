@@ -1,7 +1,7 @@
 {- |
 Module      : Text.Tabl.Ascii.Cell
 Description : ASCII-art table cell layout and alignment
-Copyright   : (c) 2016-2017 Daniel Lovasko
+Copyright   : (c) 2016-2020 Daniel Lovasko
 License     : BSD2
 
 Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
