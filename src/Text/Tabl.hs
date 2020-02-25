@@ -48,8 +48,8 @@ tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
     render EnvLatex = latex
 
     -- Compute the locations of horizontal and vertical decorations.
-    hpres           = presence (length cells        + 1) hdecor
-    vpres           = presence (length (head cells) + 1) vdecor
+    hpres           = presence (length cells         + 1) hdecor
+    vpres           = presence (length (head ecells) + 1) vdecor
 
     -- Fill the rows with fewer columns with empty strings.
     ecells          = map (extend columnCount T.empty) cells
