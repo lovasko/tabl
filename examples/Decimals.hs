@@ -11,7 +11,7 @@ table
   -> T.Text -- ^ resulting table
 table n = tabl EnvAscii hdecor vdecor aligns cells
   where
-    hdecor = DecorUnion [DecorIf (\x -> mod x 5 == 0), DecorOuter]
+    hdecor = DecorUnion [DecorIf (\x _ -> mod x 5 == 0), DecorOuter]
     vdecor = DecorAll
     aligns = [AlignRight, AlignText "."]
     cells  = zipWith (\x y -> [x, y]) xs ys

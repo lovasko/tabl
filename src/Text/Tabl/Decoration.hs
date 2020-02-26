@@ -17,6 +17,9 @@ module Text.Tabl.Decoration
 , presence
 ) where
 
+import qualified Data.Text as T
+
+
 -- | Decoration style that defines which lines (horizontal or vertical)
 -- will be visible in the resulting table.
 data Decoration
@@ -25,31 +28,33 @@ data Decoration
   | DecorOnly [Int]         -- ^ only certain lines
   | DecorUnion [Decoration] -- ^ union of more decorations
   | DecorIsect [Decoration] -- ^ intersection of more decorations
-  | DecorIf (Int -> Bool)   -- ^ based on a predicate result
+  | DecorIf (Int -> [T.Text] -> Bool) -- ^ based on a predicate result
   | DecorNegate Decoration  -- ^ opposite of a decoration
 
 -- | Convert a decoration to a list of presence information.
 presence
   :: Int        -- ^ width
+  -> [[T.Text]] -- ^ cells
   -> Decoration -- ^ decoration
   -> [Bool]     -- ^ presence
-presence n DecorAll         = replicate n True
-presence n DecorOuter       = [True] ++ replicate (n-2) False ++ [True]
-presence n (DecorOnly is)   = map (`elem` is) [0..(n-1)]
-presence n (DecorUnion ds)  = combine (||) False n ds
-presence n (DecorIsect ds)  = combine (&&) True  n ds
-presence n (DecorIf func)   = map func [0..(n-1)]
-presence n (DecorNegate d)  = map not (presence n d)
+presence n _  DecorAll         = replicate n True
+presence n _  DecorOuter       = [True] ++ replicate (n-2) False ++ [True]
+presence n _  (DecorOnly is)   = map (`elem` is) [0..(n-1)]
+presence n cs (DecorUnion ds)  = combine (||) False n cs ds
+presence n cs (DecorIsect ds)  = combine (&&) True  n cs ds
+presence n cs (DecorIf fn)     = zipWith fn [0..(n-1)] cs
+presence n cs (DecorNegate d)  = map not (presence n cs d)
 
 -- | Combine multiple decorations into one based on a selected function.
 combine
   :: (Bool -> Bool -> Bool) -- ^ combination function
   -> Bool                   -- ^ default value
   -> Int                    -- ^ width
+  -> [[T.Text]]             -- ^ cells
   -> [Decoration]           -- ^ decorations
   -> [Bool]                 -- ^ presence
-combine fn def n ds = foldr step first presences
+combine fn def n cs ds = foldr step first presences
   where
     first     = replicate n def
     step      = zipWith fn
-    presences = map (presence n) ds
+    presences = map (presence n cs) ds

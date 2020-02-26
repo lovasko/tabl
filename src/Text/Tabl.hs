@@ -20,6 +20,7 @@ module Text.Tabl
 , tabl
 ) where
 
+import Data.List (transpose)
 import qualified Data.Text as T
 
 import Text.Tabl.Alignment
@@ -48,11 +49,12 @@ tabl env hdecor vdecor aligns cells = render env hpres vpres ealigns ecells
     render EnvLatex = latex
 
     -- Compute the locations of horizontal and vertical decorations.
-    hpres           = presence (length cells         + 1) hdecor
-    vpres           = presence (length (head ecells) + 1) vdecor
+    hpres           = presence (length cells         + 1) tecells hdecor
+    vpres           = presence (length (head ecells) + 1) ecells  vdecor
 
     -- Fill the rows with fewer columns with empty strings.
     ecells          = map (extend columnCount T.empty) cells
+    tecells         = transpose ecells
 
     -- Assume alignment to the left for the columns without specification.
     ealigns         = extend columnCount AlignLeft aligns
