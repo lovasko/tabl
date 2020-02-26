@@ -30,6 +30,7 @@ data Decoration
   | DecorIsect [Decoration]           -- ^ intersection of more decorations
   | DecorIf (Int -> [T.Text] -> Bool) -- ^ based on a predicate result
   | DecorNegate Decoration            -- ^ opposite of a decoration
+  | DecorOffset Int Decoration        -- ^ move a decoration
 
 -- | Convert a decoration to a list of presence information.
 presence
@@ -44,6 +45,10 @@ presence n cs (DecorUnion ds) = combine (||) False n cs ds
 presence n cs (DecorIsect ds) = combine (&&) True  n cs ds
 presence n cs (DecorIf fn)    = zipWith fn [0..(n-1)] cs
 presence n cs (DecorNegate d) = map not (presence n cs d)
+presence n cs (DecorOffset o d)
+  | o < 0     = drop o' (presence n cs d) ++ replicate o' False
+  | otherwise = replicate o False ++ take (n - o) (presence n cs d)
+  where o' = negate o
 
 -- | Combine multiple decorations into one based on a selected function.
 combine
